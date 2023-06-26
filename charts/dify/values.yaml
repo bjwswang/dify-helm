@@ -13,7 +13,7 @@ image:
     ##
     # pullSecrets:
     #   - myRegistryKeySecretName
-  web:    
+  web:
     repository: langgenius/dify-web
     tag: 0.3.1
     pullPolicy: IfNotPresent
@@ -43,13 +43,13 @@ api:
   tolerations: []
   # extraEnv: {}
   extraEnv:
-  # Apply your own Environment Variables if necessary
-  # - name: LANG
-  #   value: "C.UTF-8"
-  - name: CHECK_UPDATE_URL
-  # Won't check for update if left empty
-  #   value: https://updates.dify.ai
-    value: ""
+    # Apply your own Environment Variables if necessary
+    # - name: LANG
+    #   value: "C.UTF-8"
+    - name: CHECK_UPDATE_URL
+      # Won't check for update if left empty
+      #   value: https://updates.dify.ai
+      value: ""
   service:
     port: 5001
     annotations: {}
@@ -59,19 +59,19 @@ api:
     # The base URL of console application, refers to the Console base URL of WEB service if console domain is
     # different from api or web app domain.
     # example: http://cloud.dify.ai
-    console: ''
+    console: ""
     # The URL for Service API endpoints，refers to the base URL of the current API service if api domain is
     # different from console domain.
     # example: http://api.dify.ai
-    api: ''
+    api: ""
     # The URL for Web APP, refers to the Web App base URL of WEB service if web app domain is different from
     # console or api domain.
     # example: http://udify.app
-    app: ''
+    app: ""
   # When enabled, migrations will be executed prior to application startup and the application will start after the migrations have completed.
   migration: true
   # A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.
-  secretKey: 'sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U'
+  secretKey: "sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U"
   ## Storage for `api` and `worker`
   ## Ignored if `.Values.externalS3.enabled` is true
   ##
@@ -92,7 +92,6 @@ api:
       accessModes: ReadWriteMany
       size: 5Gi
       subPath: ""
-
 
 worker:
   enabled: true
@@ -152,19 +151,19 @@ web:
   affinity: {}
   tolerations: []
   extraEnv:
-  # Apply your own Environment Variables if necessary
-  - name: EDITION
-    value: "SELF_HOSTED"
-    # The base URL of console application, refers to the Console base URL of WEB service if console domain is
-    # different from api or web app domain.
-    # example: http://cloud.dify.ai
-  - name: CONSOLE_URL
-    value: ''
-    # The URL for Web APP, refers to the Web App base URL of WEB service if web app domain is different from
-    # console or api domain.
-    # example: http://udify.app
-  - name: APP_URL
-    value: ''
+    # Apply your own Environment Variables if necessary
+    - name: EDITION
+      value: "SELF_HOSTED"
+      # The base URL of console application, refers to the Console base URL of WEB service if console domain is
+      # different from api or web app domain.
+      # example: http://cloud.dify.ai
+    - name: CONSOLE_URL
+      value: ""
+      # The URL for Web APP, refers to the Web App base URL of WEB service if web app domain is different from
+      # console or api domain.
+      # example: http://udify.app
+    - name: APP_URL
+      value: ""
   service:
     port: 3000
     annotations: {}
@@ -219,7 +218,6 @@ postgresql:
         - ReadWriteOnce
       size: 8Gi
 
-
 weaviate:
   enabled: true
   image:
@@ -241,26 +239,25 @@ weaviate:
   # example setting the nofile limit
   command: ["/bin/weaviate"]
   args:
-    - '--host'
-    - '0.0.0.0'
-    - '--port'
-    - '8080'
-    - '--scheme'
-    - 'http'
-    - '--config-file'
-    - '/weaviate-config/conf.yaml'
-    - --read-timeout=60s 
+    - "--host"
+    - "0.0.0.0"
+    - "--port"
+    - "8080"
+    - "--scheme"
+    - "http"
+    - "--config-file"
+    - "/weaviate-config/conf.yaml"
+    - --read-timeout=60s
     - --write-timeout=60s
 
   # below is an example that can be used to set an arbitrary nofile limit at
   # startup:
   #
-  # command: 
+  # command:
   #   - "/bin/sh"
-  # args: 
+  # args:
   #   - "-c"
   #   - "ulimit -n 65535 && /bin/weaviate --host 0.0.0.0 --port 8080 --scheme http --config-file /weaviate-config/conf.yaml"
-
 
   # it is possible to change the sysctl's 'vm.max_map_count' using initContainer for Weaviate,
   # the init Container runs before Weaviate Container and sets the value for the WHOLE node
@@ -277,7 +274,7 @@ weaviate:
         repo: alpine
         tag: latest
         pullPolicy: IfNotPresent
-    
+
     extraInitContainers: {}
     # - image: some-image
     #   name: some-name
@@ -286,14 +283,14 @@ weaviate:
   # to cases where no data is imported yet. Scaling down after importing data may
   # break usability. Full dynamic scalability will be added in a future release.
   replicas: 1
-  resources: {}
+  resources:
+    {}
     # requests:
     #   cpu: '500m'
     #   memory: '300Mi'
     # limits:
     #   cpu: '1000m'
     #   memory: '1Gi'
-
 
   # Add a service account ot the Weaviate pods if you need Weaviate to have permissions to
   # access kubernetes resources or cloud provider resources. For example for it to have
@@ -345,7 +342,6 @@ weaviate:
     successThreshold: 1
     timeoutSeconds: 3
 
-
   terminationGracePeriodSeconds: 600
 
   # Weaviate Config
@@ -385,11 +381,11 @@ weaviate:
     admin_list:
       enabled: true
       users:
-      # Examples
-      # - admin_user1
-      # - admin_user2
-      # - api-key-user-admin
-      - hello@dify.ai
+        # Examples
+        # - admin_user1
+        # - admin_user2
+        # - api-key-user-admin
+        - hello@dify.ai
       read_only_users:
       # Examples
       # - readonly_user1
@@ -399,7 +395,6 @@ weaviate:
   query_defaults:
     limit: 100
   debug: false
-
 
   # Insert any custom environment variables or envSecrets by putting the exact name
   # and desired value into the settings below. Any env name passed will be automatically
@@ -413,7 +408,7 @@ weaviate:
     # Expose metrics on port 2112 for Prometheus to scrape
     PROMETHEUS_MONITORING_ENABLED: false
 
-    # Set a MEM limit for the Weaviate Pod so it can help you both increase GC-related 
+    # Set a MEM limit for the Weaviate Pod so it can help you both increase GC-related
     # performance as well as avoid GC-related out-of-memory (“OOM”) situations
     # GOMEMLIMIT: 6GiB
 
@@ -447,11 +442,11 @@ weaviate:
     # The User/s can be a simple name or an email, no matter if it exists or not.
     # NOTE: Make sure to add the users to the authorization above overwise they will not be allowed to interact with Weaviate.
     # AUTHENTICATION_APIKEY_USERS: 'jane@doe.com,ian-smith'
-    AUTHENTICATION_APIKEY_ENABLED: 'true'
-    AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih'
-    AUTHENTICATION_APIKEY_USERS: 'hello@dify.ai'
-    AUTHORIZATION_ADMINLIST_ENABLED: 'true'
-    AUTHORIZATION_ADMINLIST_USERS: 'hello@dify.ai'
+    AUTHENTICATION_APIKEY_ENABLED: "true"
+    AUTHENTICATION_APIKEY_ALLOWED_KEYS: "WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih"
+    AUTHENTICATION_APIKEY_USERS: "hello@dify.ai"
+    AUTHORIZATION_ADMINLIST_ENABLED: "true"
+    AUTHORIZATION_ADMINLIST_USERS: "hello@dify.ai"
   envSecrets:
     # create a Kubernetes secret with AUTHENTICATION_APIKEY_ALLOWED_KEYS key and its respective value
     # AUTHENTICATION_APIKEY_ALLOWED_KEYS: name-of-the-k8s-secret-containing-the-comma-separated-api-keys
@@ -465,13 +460,13 @@ weaviate:
       envconfig:
         # Configure folder where backups should be saved
         BACKUP_FILESYSTEM_PATH: /tmp/backups
-    
+
     s3:
       enabled: false
       # If one is using AWS EKS and has already configured K8s Service Account
       # that holds the AWS credentials one can pass a name of that service account
       # here using this setting.
-      # NOTE: the root `serviceAccountName` config has priority over this one, and 
+      # NOTE: the root `serviceAccountName` config has priority over this one, and
       # if the root one is set this one will NOT overwrite it. This one is here for
       # backwards compatibility.
       serviceAccountName:
@@ -480,17 +475,17 @@ weaviate:
         # Configure bucket where backups should be saved, this setting is mandatory
         BACKUP_S3_BUCKET: weaviate-backups
 
-        # Optional setting. Defaults to empty string. 
+        # Optional setting. Defaults to empty string.
         # Set this option if you want to save backups to a given location
         # inside the bucket
         # BACKUP_S3_PATH: path/inside/bucket
 
-        # Optional setting. Defaults to AWS S3 (s3.amazonaws.com). 
+        # Optional setting. Defaults to AWS S3 (s3.amazonaws.com).
         # Set this option if you have a MinIO storage configured in your environment
         # and want to use it instead of the AWS S3.
         # BACKUP_S3_ENDPOINT: custom.minio.endpoint.address
 
-        # Optional setting. Defaults to true. 
+        # Optional setting. Defaults to true.
         # Set this option if you don't want to use SSL.
         # BACKUP_S3_USE_SSL: true
 
@@ -503,7 +498,7 @@ weaviate:
       # You can pass the User credentials (access-key id and access-secret-key) in 2 ways:
       # 1. by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY plain values in the `secrets` section below
       #     this chart will create a kubernetes secret for you with these key-values pairs
-      # 2. create Kubernetes secret/s with AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY  keys and their respective values 
+      # 2. create Kubernetes secret/s with AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY  keys and their respective values
       #     Set the Key and the secret where it is set in `envSecrets` section below
       secrets: {}
       #   AWS_ACCESS_KEY_ID: access-key-id (plain text)
@@ -551,7 +546,7 @@ weaviate:
         # Configure container where backups should be saved, this setting is mandatory
         BACKUP_AZURE_CONTAINER: weaviate-backups
 
-        # Optional setting. Defaults to empty string. 
+        # Optional setting. Defaults to empty string.
         # Set this option if you want to save backups to a given location
         # inside the container
         # BACKUP_AZURE_PATH: path/inside/container
@@ -562,7 +557,7 @@ weaviate:
       # 1. by setting the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_KEY
       #     or AZURE_STORAGE_CONNECTION_STRING plain values in the `secrets` section below
       #     this chart will create a kubernetes secret for you with these key-values pairs
-      # 2. create Kubernetes secret/s with AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_KEY 
+      # 2. create Kubernetes secret/s with AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_KEY
       #     or AZURE_STORAGE_CONNECTION_STRING and their respective values
       #     Set the Key and the secret where it is set in `envSecrets` section below
       secrets: {}
@@ -576,7 +571,6 @@ weaviate:
       #   AZURE_STORAGE_ACCOUNT: name-of-the-k8s-secret-containing-the-account-name
       #   AZURE_STORAGE_KEY: name-of-the-k8s-secret-containing-account-key
       #   AZURE_STORAGE_CONNECTION_STRING: name-of-the-k8s-secret-containing-connection-string
-
 
   # modules are extensions to Weaviate, they can be used to support various
   # ML-models, but also other features unrelated to model inference.
@@ -594,7 +588,7 @@ weaviate:
   # values.yaml will be ignored when defining a custom config map.
   custom_config_map:
     enabled: false
-    name: 'custom-config'
+    name: "custom-config"
 
   # Pass any annotations to Weaviate pods
   annotations:
@@ -621,16 +615,17 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
+  enabled: true
+  className: "portal-ingress"
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/backend-protocol: HTTP
     # nginx.ingress.kubernetes.io/proxy-body-size: 15m
     # nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - host: dify-example.local
+    - host: dify.172.190.30.163.nip.io
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -643,7 +638,8 @@ ingress:
   #    hosts:
   #      - dify-example.local
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -654,7 +650,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
 
 # Global node selector
 # If set, this will apply to all dify components
@@ -2459,7 +2454,6 @@ redis:
     annotationKey: external-dns.alpha.kubernetes.io/
     additionalAnnotations: {}
 
-
 ###################################
 # External postgres
 # - these configs are only used when `externalPostgres.enabled` is true
@@ -2509,7 +2503,6 @@ externalWeaviate:
   enabled: false
   endpoint: "http://weaviate:8080"
   apiKey: "WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih"
-
 
 ###################################
 # External Qdrant
